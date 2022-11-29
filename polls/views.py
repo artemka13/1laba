@@ -1,17 +1,28 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import CreateView
 
-from .forms import UserRegistrationForm
-from .models import Person
 from .models import Question, Choice
 
 from django.views.generic import UpdateView
-from polls.models import Person
-from polls.forms import PersonForm
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
+
+from django.views import View
+
+from .forms import RegisterForm
+from django.contrib.auth.views import LoginView
+from .forms import RegisterForm, LoginForm
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
+from .forms import UpdateUserForm, UpdateProfileForm
 
 
 class IndexView(generic.ListView):
@@ -51,28 +62,79 @@ def show_home(request):
     return render(request, 'user/index.html')
 
 
-def register(request):
+def dispatch(self, request, *args, **kwargs):
+    # will redirect to the home page if a user tries to access the register page while logged in
+    if request.user.is_authenticated:
+        return redirect(to='/')
+
+    # else process dispatch as it otherwise normally would
+    return super(RegisterView, self).dispatch(request, *args, **kwargs)
+
+
+class RegisterView(View):
+    form_class = RegisterForm
+    initial = {'key': 'value'}
+    template_name = 'user/register.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}')
+
+            return redirect(to='/')
+
+        return render(request, self.template_name, {'form': form})
+
+
+class CustomLoginView(LoginView):
+    form_class = LoginForm
+
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get('remember_me')
+
+        if not remember_me:
+            # set session expiry to 0 seconds. So it will automatically close the session after the browser is closed.
+            self.request.session.set_expiry(0)
+
+            # Set session as modified to force data updates/cookie to be saved.
+            self.request.session.modified = True
+
+        # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
+        return super(CustomLoginView, self).form_valid(form)
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'user/password_reset.html'
+    email_template_name = 'user/password_reset_email.html'
+    subject_template_name = 'user/password_reset_subject'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('index')
+
+
+@login_required
+def profile(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            # Create a new user object but avoid saving it yet
-            new_user = user_form.save(commit=False)
-            # Set the chosen password
-            new_user.set_password(user_form.cleaned_data['password'])
-            # Save the User object
-            new_user.save()
-            return render(request, 'user/register_done.html', {'new_user': new_user})
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='profile')
     else:
-        user_form = UserRegistrationForm()
-    return render(request, 'user/register.html', {'user_form': user_form})
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
 
-
-class PersonCreateView(CreateView):
-    model = Person
-    fields = ('name', 'email', 'job_title', 'bio')
-
-
-class PersonUpdateView(UpdateView):
-    model = Person
-    form_class = PersonForm
-    template_name = 'user/person_update_form.html'
+    return render(request, 'user/profile.html', {'user_form': user_form, 'profile_form': profile_form})

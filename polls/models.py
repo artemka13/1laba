@@ -3,6 +3,9 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+from django.db import models
+from django.contrib.auth.models import User
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -24,10 +27,13 @@ class Choice(models.Model):
         return self.choice_text
 
 
-class Person(models.Model):
-    name = models.CharField(max_length=130)
-    email = models.EmailField(blank=True)
-    job_title = models.CharField(max_length=30, blank=True)
-    bio = models.TextField(blank=True)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    bio = models.TextField()
+
+    def __str__(self):
+        return self.user.username
 
 
