@@ -126,7 +126,7 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
 def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = UpdateProfileForm(request.POST, instance=request.user)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -135,6 +135,13 @@ def profile(request):
             return redirect(to='profile')
     else:
         user_form = UpdateUserForm(instance=request.user)
-        profile_form = UpdateProfileForm(instance=request.user.profile)
+        profile_form = UpdateProfileForm(instance=request.user)
 
     return render(request, 'user/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+# @login_required
+# def profile(request):
+#     user_form = request.user
+#
+#     return render(request, 'user/profile.html', {'user_form':user_form})

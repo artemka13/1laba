@@ -2,31 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a70f5c72-dcc7-45eb-838d-e8d03a820e23" name="Changes" comment="sigopka">
-      <change afterPath="$PROJECT_DIR$/polls/signals.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/logout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/password_reset.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/password_reset_complete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/password_reset_confirm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/password_reset_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/password_reset_subject" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/polls/templates/user/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mysite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mysite.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mysite/media/default.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polls/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/polls/person_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/registration/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polls/templates/user/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/user/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/user/person_update_form.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/user/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/polls/templates/user/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/user/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polls/templates/user/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/polls/templates/user/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/templates/user/register_done.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/polls/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/polls/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/polls/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,12 +45,13 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/kalab/OneDrive/Рабочий стол/RKISlab1-master",
+    "last_opened_file_path": "/home/gr404_maaiv/PythonProjects/1laba/mysite/media",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mysite/media" />
       <recent name="C:\Users\kalab\Desktop\mysite\polls\templates\polls" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
